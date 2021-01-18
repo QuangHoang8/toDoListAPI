@@ -28,15 +28,18 @@ function App() {
     setLoadingCountChangeFavoriteStatus,
   ] = useState(0);
 
-  useEffect(async () => {
-    try {
-      const response = await getToDos();
-      setTaskLists(response);
-    } catch {
-      setIsError(true);
-    } finally {
-      setIsLoading(false);
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await getToDos();
+        setTaskLists(response);
+      } catch {
+        setIsError(true);
+      } finally {
+        setIsLoading(false);
+      }
     }
+    fetchData();
   }, [
     loadingCount,
     loadingCountAddToDo,
